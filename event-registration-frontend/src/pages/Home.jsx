@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { OurStory } from "@/components/OurStory";
 import { MissionValues } from "@/components/MissionValues";
 import { WhatWeOffer } from "@/components/WhatWeOffer";
-import SwiperCarousel from "@/components/EventsCarousel";
 import { JoinUsCTA } from "@/components/JoinUsCTA";
 import { Footer } from "@/components/Footer";
 
@@ -69,9 +68,7 @@ export default function Home() {
         
         {/* What We Offer Section */}
         <WhatWeOffer />
-        
-        {/* Events Carousel Section */}
-        <SwiperCarousel />
+      
         
         {/* Join Us CTA Section */}
         <JoinUsCTA />
