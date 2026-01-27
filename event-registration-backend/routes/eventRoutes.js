@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const { storage } = require('../config/cloudinaryConfig');
 
 const {
   createEvent,
@@ -10,22 +11,16 @@ const {
   getRegisteredEvents,
   updateEvent,
   deleteEvent,
-  getEventById, 
+  getEventById,
 } = require('../controllers/eventController');
 const { protect } = require('../middleware/authMiddleware');
 
-// Upload config
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  },
-});
+// Upload config - now using Cloudinary storage
 const upload = multer({ storage });
 
+
 // Routes
-router.post('/create', upload.single('image'), protect,createEvent);
+router.post('/create', upload.single('image'), protect, createEvent);
 router.get('/all', getAllEvents);
 router.get('/hosted', protect, getEventsByHost);
 router.post('/register', registerForEvent);
