@@ -13,7 +13,7 @@ export default function MyHostedEvents() {
   const [selectedEventName, setSelectedEventName] = useState("");
 
   const navigate = useNavigate();
-  const { user } = useAuth(); 
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchHostedEvents = async () => {
@@ -75,7 +75,7 @@ export default function MyHostedEvents() {
             {events.map((event) => (
               <div key={event._id} className="bg-purple-300 rounded-2xl shadow-lg">
                 <img
-                  src={`http://localhost:5000/${event.image}`}
+                  src={event.image}
                   alt={event.eventName}
                   className="w-full h-48 object-cover"
                 />

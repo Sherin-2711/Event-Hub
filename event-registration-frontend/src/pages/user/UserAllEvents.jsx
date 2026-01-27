@@ -69,12 +69,13 @@ function UserAllEvents() {
             >
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={`http://localhost:5000/${event.image}`}
+                  src={event.image}
                   alt={event.eventName}
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
+
 
               <div className="p-6 text-purple-900">
                 <h3 className="text-xl font-bold mb-2">

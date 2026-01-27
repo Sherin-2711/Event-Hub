@@ -48,7 +48,7 @@ const EventDetails = () => {
       try {
         const eventRes = await api.get(`/events/${eventId}`);
         setEvent(eventRes.data);
-        
+
         const regRes = await api.get("/register/user-events", {
           params: { userEmail: user.email.toLowerCase() },
         });
@@ -95,7 +95,7 @@ const EventDetails = () => {
       {/* HERO */}
       <div className="relative h-[400px]">
         <img
-          src={`http://localhost:5000/${event.image}`}
+          src={event.image}
           className="w-full h-full object-cover"
           alt={event.eventName}
         />
@@ -119,11 +119,10 @@ const EventDetails = () => {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 font-medium ${
-                  activeTab === tab
-                    ? "text-[#310C7E] border-b-2 border-[#310C7E]"
-                    : "text-gray-500"
-                }`}
+                className={`px-4 py-2 font-medium ${activeTab === tab
+                  ? "text-[#310C7E] border-b-2 border-[#310C7E]"
+                  : "text-gray-500"
+                  }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -199,11 +198,10 @@ const EventDetails = () => {
                 event.timeline.map((item, index) => (
                   <div key={index} className="flex gap-3 mb-5">
                     <div
-                      className={`w-3 h-3 rounded-full mt-2 ${
-                        item.status === "completed"
-                          ? "bg-green-500"
-                          : "bg-gray-400"
-                      }`}
+                      className={`w-3 h-3 rounded-full mt-2 ${item.status === "completed"
+                        ? "bg-green-500"
+                        : "bg-gray-400"
+                        }`}
                     />
                     <div>
                       <h4 className="font-medium">{item.title}</h4>
@@ -258,15 +256,15 @@ const EventDetails = () => {
               </h2>
 
               {event.prize ? (
-                  <div  className="flex items-start gap-3 mb-4">
-                    <Trophy className="text-[#310C7E]" />
-                    <div>
-                      <h3 className="font-medium"></h3>
-                      <p className="text-sm text-gray-600">
-                        {event.prize}
-                      </p>
-                    </div>
+                <div className="flex items-start gap-3 mb-4">
+                  <Trophy className="text-[#310C7E]" />
+                  <div>
+                    <h3 className="font-medium"></h3>
+                    <p className="text-sm text-gray-600">
+                      {event.prize}
+                    </p>
                   </div>
+                </div>
               ) : (
                 <p className="text-gray-600">
                   Prize details will be announced soon.
@@ -305,9 +303,8 @@ const EventDetails = () => {
           <button
             onClick={() => setShowModal(true)}
             disabled={isRegistered}
-            className={`w-full py-2 rounded text-white font-semibold ${
-              isRegistered ? "bg-green-500" : "bg-[#310C7E]"
-            }`}
+            className={`w-full py-2 rounded text-white font-semibold ${isRegistered ? "bg-green-500" : "bg-[#310C7E]"
+              }`}
           >
             {isRegistered ? "Registered ✓" : "Register Now"}
           </button>
