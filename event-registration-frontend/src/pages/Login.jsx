@@ -10,7 +10,7 @@ export const Login = () => {
   const { userType } = useParams();
   const [userTypeState, setUserTypeState] = useState(userType || "user");
   const navigate = useNavigate();
-  const { login } = useAuth(); // 🔥 from AuthContext
+  const { login } = useAuth();
 
   useEffect(() => {
     setUserTypeState(userType || "user");
@@ -31,7 +31,6 @@ export const Login = () => {
   };
 
 
-  // 🔥 CLEAN LOGIN HANDLER
   const handleLogin = async (email, password) => {
     try {
       const res = await api.post("/auth/login", {
@@ -77,21 +76,19 @@ export const Login = () => {
           >
             <button
               onClick={() => handleUserTypeChange("user")}
-              className={`px-6 py-2 rounded-full transition-all duration-200 ${
-                userTypeState === "user"
+              className={`px-6 py-2 rounded-full transition-all duration-200 ${userTypeState === "user"
                   ? "bg-purple-200 text-purple-900"
                   : "text-white hover:bg-white/5"
-              }`}
+                }`}
             >
               User
             </button>
             <button
               onClick={() => handleUserTypeChange("host")}
-              className={`px-6 py-2 rounded-full transition-all duration-200 ${
-                userTypeState === "host"
+              className={`px-6 py-2 rounded-full transition-all duration-200 ${userTypeState === "host"
                   ? "bg-purple-200 text-purple-900"
                   : "text-white hover:bg-white/5"
-              }`}
+                }`}
             >
               Host
             </button>
@@ -104,9 +101,9 @@ export const Login = () => {
             className="w-full max-w-md"
           >
             <AuthForm
-              type= "login"
+              type="login"
               userType={userTypeState}
-              onLogin={handleLogin} // 🔥 unchanged API
+              onLogin={handleLogin}
             />
           </motion.div>
 
@@ -116,7 +113,7 @@ export const Login = () => {
             transition={{ delay: 0.5 }}
             className="mt-6 text-white/80 text-center"
           >
-                Don't have an account?{" "}
+            Don't have an account?{" "}
             <Link
               to={`/signup/${userTypeState}`}
               className="font-semibold text-white underline"

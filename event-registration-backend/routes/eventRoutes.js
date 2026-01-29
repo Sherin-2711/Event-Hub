@@ -32,7 +32,7 @@ router.get('/:id', getEventById);
 router.put(
   '/:id',
   protect,
-  upload.single('image'), // 🔥 REQUIRED
+  upload.single('image'),
   updateEvent
 );
 

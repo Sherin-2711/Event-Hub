@@ -8,7 +8,7 @@ const UserMyEvents = () => {
   const [events, setEvents] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const { user } = useAuth(); // ✅ correct source
+  const { user } = useAuth();
   const email = user?.email;
 
   useEffect(() => {
@@ -71,9 +71,8 @@ const UserMyEvents = () => {
                   </div>
                 </div>
                 <ChevronDown
-                  className={`w-6 h-6 transition-transform ${
-                    expandedIndex === idx ? "rotate-180" : ""
-                  }`}
+                  className={`w-6 h-6 transition-transform ${expandedIndex === idx ? "rotate-180" : ""
+                    }`}
                 />
               </div>
 

@@ -12,13 +12,14 @@ import {
 import { motion } from "framer-motion";
 import api from "@/api/axios";
 import { useAuth } from "@/context/AuthContext";
+import EventLoader from "@/components/EventLoader";
 
 export default function HostEvent() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const eventToEdit = state?.eventToEdit;
 
-  const { user } = useAuth(); // ✅ ensure authenticated (no direct usage needed)
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     eventName: "",
@@ -35,8 +36,9 @@ export default function HostEvent() {
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
 
-  // 🔹 Populate form when editing
   useEffect(() => {
     if (eventToEdit) {
       setFormData({
@@ -67,6 +69,9 @@ export default function HostEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+    setLoadingMessage(eventToEdit ? "Updating Event..." : "Creating Event...");
+
     try {
       const payload = new FormData();
 
@@ -80,18 +85,18 @@ export default function HostEvent() {
         await api.put(`/events/${eventToEdit._id}`, payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Event updated successfully!");
       } else {
         await api.post("/events/create", payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Event created successfully!");
       }
 
       navigate("/admin/my-events");
     } catch (err) {
       console.error("Error submitting form", err);
       alert("Something went wrong.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,8 +119,6 @@ export default function HostEvent() {
       className="min-h-screen bg-gradient-to-br from-purple-300 to-purple-500 py-10 px-4 md:px-10 relative"
       style={{ perspective: "1500px" }}
     >
-      {/* UI & animations BELOW are untouched */}
-
       <motion.div className="relative z-10 max-w-4xl mx-auto">
         <motion.button
           onClick={() => navigate(-1)}
@@ -202,6 +205,8 @@ export default function HostEvent() {
           </div>
         </motion.div>
       </motion.div>
+
+      <EventLoader isOpen={isLoading} message={loadingMessage} />
     </div>
   );
 }

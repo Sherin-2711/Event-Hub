@@ -100,7 +100,7 @@ export default function Navbar() {
             {user ? (
               <>
                 <span className="text-gray-700 font-medium">
-                  👤 {user.name}
+                 👤 {user.name}
                 </span>
                 <Button
                   variant="ghost"
@@ -156,11 +156,10 @@ const NavLink = ({ to, label }) => {
   return (
     <Link
       to={to}
-      className={`font-medium transition-colors ${
-        isActive
+      className={`font-medium transition-colors ${isActive
           ? "text-[#310C7E]"
           : "text-gray-700 hover:text-gray-900"
-      }`}
+        }`}
     >
       {label}
     </Link>
