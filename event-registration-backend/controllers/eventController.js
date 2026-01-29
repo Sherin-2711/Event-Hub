@@ -124,12 +124,10 @@ exports.updateEvent = async (req, res) => {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    // 🔐 Ownership check (FINAL)
     if (event.createdBy.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Not authorized to update this event" });
     }
 
-    // 🔄 Update allowed fields
     const updatableFields = [
       "eventName",
       "description",
@@ -152,7 +150,6 @@ exports.updateEvent = async (req, res) => {
       }
     });
 
-    // 🖼️ HANDLE IMAGE UPDATE
     if (req.file) {
       // Delete old image from Cloudinary if exists (non-blocking)
       if (event.image) {
@@ -192,12 +189,10 @@ exports.deleteEvent = async (req, res) => {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    // 🔐 Ownership check
     if (event.createdBy.toString() !== req.user.id.toString()) {
       return res.status(403).json({ message: "Not authorized to delete this event" });
     }
 
-    // 🖼️ Delete image from Cloudinary if exists (non-blocking)
     if (event.image) {
       // Extract public_id from Cloudinary URL
       const urlParts = event.image.split('/');

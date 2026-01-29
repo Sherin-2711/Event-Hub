@@ -22,7 +22,6 @@ export const Register = () => {
     navigate(`/signup/${newType}`);
   };
 
-  // 🔥 REGISTER HANDLER (NO TOKEN)
   const handleRegister = async (formData) => {
     try {
       await api.post("/auth/register", {
@@ -60,21 +59,19 @@ export const Register = () => {
           >
             <button
               onClick={() => handleUserTypeChange("user")}
-              className={`px-6 py-2 rounded-full transition-all duration-200 ${
-                userTypeState === "user"
+              className={`px-6 py-2 rounded-full transition-all duration-200 ${userTypeState === "user"
                   ? "bg-purple-200 text-purple-900"
                   : "text-white hover:bg-white/5"
-              }`}
+                }`}
             >
               User
             </button>
             <button
               onClick={() => handleUserTypeChange("host")}
-              className={`px-6 py-2 rounded-full transition-all duration-200 ${
-                userTypeState === "host"
+              className={`px-6 py-2 rounded-full transition-all duration-200 ${userTypeState === "host"
                   ? "bg-purple-200 text-purple-900"
                   : "text-white hover:bg-white/5"
-              }`}
+                }`}
             >
               Host
             </button>

@@ -19,7 +19,7 @@ export default function HostEvent() {
   const { state } = useLocation();
   const eventToEdit = state?.eventToEdit;
 
-  const { user } = useAuth(); // ✅ ensure authenticated (no direct usage needed)
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     eventName: "",
@@ -39,7 +39,6 @@ export default function HostEvent() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("");
 
-  // 🔹 Populate form when editing
   useEffect(() => {
     if (eventToEdit) {
       setFormData({
@@ -120,8 +119,6 @@ export default function HostEvent() {
       className="min-h-screen bg-gradient-to-br from-purple-300 to-purple-500 py-10 px-4 md:px-10 relative"
       style={{ perspective: "1500px" }}
     >
-      {/* UI & animations BELOW are untouched */}
-
       <motion.div className="relative z-10 max-w-4xl mx-auto">
         <motion.button
           onClick={() => navigate(-1)}

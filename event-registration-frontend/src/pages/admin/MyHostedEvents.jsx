@@ -120,7 +120,6 @@ export default function MyHostedEvents() {
         )}
       </motion.div>
 
-      {/* Modal stays unchanged */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
           <div className="bg-purple-400 p-6 rounded-2xl max-w-3xl w-full">

@@ -17,7 +17,7 @@ import TeamRegisterModal from "../components/TeamRegisterModal";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 
-/* ---------- Helper (NO UI CHANGE) ---------- */
+
 const InfoBlock = ({ icon, title, children }) => (
   <div className="flex items-start gap-3">
     <div className="p-2 bg-purple-100 rounded-lg text-[#310C7E]">

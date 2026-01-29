@@ -1,4 +1,4 @@
-import { registerTeam } from "@/api/registerTeam"; // 👈 Add this
+import { registerTeam } from "@/api/registerTeam";
 
 const handleSubmit = async () => {
   if (!teamName || teamMembers.some(m => !m.name || !m.email)) {
@@ -8,8 +8,8 @@ const handleSubmit = async () => {
   try {
     // Example: Pass eventId and eventName from props or context
     await registerTeam({
-      eventId: "YOUR_EVENT_ID",         // 🔁 Replace this dynamically
-      eventName: "Your Event Name",     // 🔁 Replace this dynamically
+      eventId: "YOUR_EVENT_ID",
+      eventName: "Your Event Name",
       teamName,
       teamMembers
     });
