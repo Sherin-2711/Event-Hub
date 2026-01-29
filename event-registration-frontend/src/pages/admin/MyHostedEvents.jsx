@@ -5,12 +5,14 @@ import { Edit, Trash2, Eye, X } from "lucide-react";
 import { motion } from "framer-motion";
 import api from "@/api/axios";
 import { useAuth } from "@/context/AuthContext";
+import EventLoader from "@/components/EventLoader";
 
 export default function MyHostedEvents() {
   const [events, setEvents] = useState(null);
   const [selectedEventRegistrations, setSelectedEventRegistrations] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedEventName, setSelectedEventName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -32,11 +34,15 @@ export default function MyHostedEvents() {
   const handleDelete = async (eventId) => {
     if (!window.confirm("Are you sure you want to delete this event?")) return;
 
+    setIsLoading(true);
+
     try {
       await api.delete(`/events/${eventId}`);
       setEvents((prev) => prev.filter((e) => e._id !== eventId));
     } catch (err) {
       console.error("Failed to delete event", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -133,6 +139,8 @@ export default function MyHostedEvents() {
           </div>
         </div>
       )}
+
+      <EventLoader isOpen={isLoading} message="Deleting Event..." />
     </div>
   );
 }

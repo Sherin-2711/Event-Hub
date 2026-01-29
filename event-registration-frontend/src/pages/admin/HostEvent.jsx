@@ -12,6 +12,7 @@ import {
 import { motion } from "framer-motion";
 import api from "@/api/axios";
 import { useAuth } from "@/context/AuthContext";
+import EventLoader from "@/components/EventLoader";
 
 export default function HostEvent() {
   const navigate = useNavigate();
@@ -35,6 +36,8 @@ export default function HostEvent() {
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
 
   // 🔹 Populate form when editing
   useEffect(() => {
@@ -67,6 +70,9 @@ export default function HostEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+    setLoadingMessage(eventToEdit ? "Updating Event..." : "Creating Event...");
+
     try {
       const payload = new FormData();
 
@@ -80,18 +86,18 @@ export default function HostEvent() {
         await api.put(`/events/${eventToEdit._id}`, payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Event updated successfully!");
       } else {
         await api.post("/events/create", payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        alert("Event created successfully!");
       }
 
       navigate("/admin/my-events");
     } catch (err) {
       console.error("Error submitting form", err);
       alert("Something went wrong.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -202,6 +208,8 @@ export default function HostEvent() {
           </div>
         </motion.div>
       </motion.div>
+
+      <EventLoader isOpen={isLoading} message={loadingMessage} />
     </div>
   );
 }
